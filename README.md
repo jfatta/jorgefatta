@@ -1,2 +1,0 @@
-# jorgefatta
-about me
