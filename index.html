@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    	<style type="text/css">
+        html,
+        body {
+          font-family: "Consolas", Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+          background: black;
+          color: #777;
+          text-align: center;
+        }
+    
+        a {
+          color: white;
+          display: inline-block;
+          margin: 0 20px;
+          position: relative;
+          text-decoration: none;
+        }
+    
+        a:after {
+          content: "";
+          height: 1px;
+          background: white;
+          position: absolute;
+          pointer-events: none;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          opacity: 0;
+          transform: scale(0, 1);
+          transition: all 300ms;
+        }
+    
+        a:hover:after {
+          opacity: 1;
+          transform: scale(1, 1);
+        }
+        </style>
+  </head>
+  <body>
+    <h1>Jorge Fatta</h1>
+    <div id="links">
+      <a href="https://github.com/jfatta">github</a>
+      <a href="https://twitter.com/jorgefatta">twitter</a>
+      <a href="https://www.linkedin.com/in/jorgefatta/">linkedin</a>
+    </div>
+  </body>
+</html>
