@@ -288,12 +288,12 @@
                 <select class="theme-select" id="theme-select">
                     <option value="dark">☾ Dark</option>
                     <option value="light">☼ Light</option>
-                    <option value="system">⚙ System</option>
+                    <option value="system" id="system-theme-option">⌨ System</option>
                 </select>
             </div>
             <div class="terminal-content">
                 <p>Hi, I'm Jorge Fatta.</p>
-                <p>I'm a platform engineering tech lead.</p>
+                <p>platform engineering tech lead.</p>
                 <div class="links">
                     <a href="https://github.com/jfatta" target="_blank">GitHub</a>
                     <a href="https://linkedin.com/in/jorgefatta" target="_blank">LinkedIn</a>
@@ -305,7 +305,14 @@
     </div>
     <script>
         const themeSelect = document.getElementById('theme-select');
+        const systemOption = document.getElementById('system-theme-option');
         const currentTheme = localStorage.getItem('theme') || 'system';
+        
+        // Detect if device is mobile
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Update system option icon based on device
+        systemOption.textContent = `${isMobile ? '☎' : '⌨'} System`;
         
         // Set initial value
         themeSelect.value = currentTheme;
