@@ -221,6 +221,10 @@
             padding-right: 1.5rem;
         }
 
+        .theme-select option[title] {
+            padding: 4px;
+        }
+
         .theme-select:hover {
             opacity: 1;
         }
@@ -320,10 +324,10 @@
     <div class="container">
         <div class="terminal">
             <div class="theme-switcher">
-                <select class="theme-select" id="theme-select">
-                    <option value="dark">☾ Dark</option>
-                    <option value="light">☼ Light</option>
-                    <option value="system" id="system-theme-option">⌨ System</option>
+                <select class="theme-select" id="theme-select" title="Change theme">
+                    <option value="dark" title="Switch to dark theme">☾ Dark</option>
+                    <option value="light" title="Switch to light theme">☼ Light</option>
+                    <option value="system" id="system-theme-option" title="Use system theme">⌨ System</option>
                 </select>
             </div>
             <div class="terminal-content">
@@ -332,12 +336,12 @@
             </div>
             <div class="terminal-footer">
                 <div class="social-icons">
-                    <a href="https://github.com/jfatta" target="_blank">⎇</a>
-                    <a href="https://linkedin.com/in/jorgefatta" target="_blank">⌘</a>
-                    <a href="https://x.com/jorgefatta_" target="_blank">✕</a>
-                    <a href="mailto:hi@jorgefatta.dev">✉</a>
+                    <a href="https://github.com/jfatta" target="_blank" title="Visit my GitHub profile">⎇</a>
+                    <a href="https://linkedin.com/in/jorgefatta" target="_blank" title="Connect on LinkedIn">⌘</a>
+                    <a href="https://x.com/jorgefatta_" target="_blank" title="Follow me on X">✕</a>
+                    <a href="mailto:hi@jorgefatta.dev" title="Send me an email">✉</a>
                 </div>
-                <div class="datetime" id="datetime"></div>
+                <div class="datetime" id="datetime" title="Local time"></div>
             </div>
         </div>
     </div>
