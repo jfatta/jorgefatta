@@ -1,63 +1,307 @@
 <!DOCTYPE html>
-<html>
-  <head>
-     <title>Jorge L. Fatta</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    
-    <style type="text/css">
-      @font-face {
-          font-family: 'Geist';
-          src: url('/fonts/Geist-Regular.woff2') format('woff2'),
-              url('/fonts/Geist-Regular.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-      }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jorge Fatta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #111111;
+            --dark-text: #3d9168;
+            --dark-accent: #3a4;
+            --dark-border: rgba(61, 145, 104, 0.3);
+            --dark-gradient: rgba(61, 145, 104, 0.05);
+            
+            --light-bg: #f5f5f5;
+            --light-text: #2a624d;
+            --light-accent: #2a5;
+            --light-border: rgba(42, 98, 77, 0.3);
+            --light-gradient: rgba(42, 98, 77, 0.05);
+        }
 
-      html,
-      body {
-        font-family: 'Geist', sans-serif;
-        background: #3c4954;
-        color: #FFF;
-        text-align: center;
-      }
+        @media (prefers-color-scheme: dark) {
+            :root[data-theme="system"] {
+                --bg: var(--dark-bg);
+                --text: var(--dark-text);
+                --accent: var(--dark-accent);
+                --border: var(--dark-border);
+                --gradient: var(--dark-gradient);
+            }
+        }
 
-      a {
-        color: white;
-        display: inline-block;
-        margin: 21px 21px;
-        position: relative;
-        text-decoration: none;
-      }
+        @media (prefers-color-scheme: light) {
+            :root[data-theme="system"] {
+                --bg: var(--light-bg);
+                --text: var(--light-text);
+                --accent: var(--light-accent);
+                --border: var(--light-border);
+                --gradient: var(--light-gradient);
+            }
+        }
 
-      a:after {
-        content: '';
-        height: 1px;
-        background: white;
-        position: absolute;
-        pointer-events: none;
-        bottom: -5px;
-        left: 0;
-        right: 0;
-        opacity: 0;
-        transform: scale(0, 1);
-        transition: all 300ms;
-      }
+        :root[data-theme="dark"] {
+            --bg: var(--dark-bg);
+            --text: var(--dark-text);
+            --accent: var(--dark-accent);
+            --border: var(--dark-border);
+            --gradient: var(--dark-gradient);
+        }
 
-      a:hover:after {
-        opacity: 1;
-        transform: scale(1, 1);
-      }
+        :root[data-theme="light"] {
+            --bg: var(--light-bg);
+            --text: var(--light-text);
+            --accent: var(--light-accent);
+            --border: var(--light-border);
+            --gradient: var(--light-gradient);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Mono', 'Roboto Mono', 'Lucida Console', Monaco, monospace;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .glitch {
+            font-size: 4rem;
+            font-weight: bold;
+            position: relative;
+            text-shadow: 2px 2px 0px rgba(61, 145, 104, 0.2);
+            color: var(--terminal-green);
+            animation: none;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.5s;
+        }
+
+        .terminal {
+            background: color-mix(in srgb, var(--bg) 95%, black);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .terminal::before {
+            background: linear-gradient(
+                to bottom,
+                var(--gradient),
+                transparent
+            );
+        }
+
+        .terminal p {
+            margin-bottom: 1rem;
+        }
+
+        .terminal p::before {
+            content: ">";
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .links {
+            margin-top: 2rem;
+        }
+
+        .links a {
+            color: var(--text);
+            text-decoration: none;
+            margin-right: 1rem;
+            position: relative;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--text);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .theme-switcher {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+
+        .theme-select {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.25rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 1.5rem;
+        }
+
+        .theme-select:hover {
+            opacity: 1;
+        }
+
+        .theme-select:focus {
+            opacity: 1;
+            border-color: var(--text);
+        }
+
+        .theme-select option {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .theme-switcher::after {
+            content: "▼";
+            font-size: 0.8rem;
+            color: var(--text);
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
+                            -0.025em -0.05em 0 rgba(0,255,0,.75),
+                            0.025em 0.05em 0 rgba(0,0,255,.75);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
+                            -0.025em -0.05em 0 rgba(0,255,0,.75),
+                            0.025em 0.05em 0 rgba(0,0,255,.75);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75),
+                            0.025em 0.025em 0 rgba(0,255,0,.75),
+                            -0.05em -0.05em 0 rgba(0,0,255,.75);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75),
+                            0.025em 0.025em 0 rgba(0,255,0,.75),
+                            -0.05em -0.05em 0 rgba(0,0,255,.75);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75),
+                            0.05em 0 0 rgba(0,255,0,.75),
+                            0 -0.05em 0 rgba(0,0,255,.75);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75),
+                            0.05em 0 0 rgba(0,255,0,.75),
+                            0 -0.05em 0 rgba(0,0,255,.75);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 rgba(255,0,0,.75),
+                            -0.025em -0.025em 0 rgba(0,255,0,.75),
+                            -0.025em -0.05em 0 rgba(0,0,255,.75);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .terminal {
+                padding: 1rem;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <h1>Hi,</h1>
-    <h2>I'm Jorge, software engineer.</h2>
-    <div id="links">
-      <a href="https://github.com/jfatta">github</a></br>
-      <a href="https://www.linkedin.com/in/jorgefatta/">linkedin</a></br>
-      <a href="https://x.com/jorgefatta_">tw/x</a></br>
-      <a href="https://www.sanmatias.app/">sanmatias.app</a></br>
+</head>
+<body>
+    <div class="container">
+        <div class="terminal">
+            <div class="theme-switcher">
+                <select class="theme-select" id="theme-select">
+                    <option value="dark">☾ Dark</option>
+                    <option value="light">☼ Light</option>
+                    <option value="system">⚙ System</option>
+                </select>
+            </div>
+            <p>Jorge Fatta, software engineer.</p>
+            <div class="links">
+                <a href="https://github.com/jfatta" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/jorgefatta" target="_blank">LinkedIn</a>
+                <a href="https://x.com/jorgefatta_" target="_blank">X</a>
+                <a href="mailto:hi@jorgefatta.dev">✉</a>
+            </div>
+        </div>
     </div>
-    <div><a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a></div>
-  </body>
+    <script>
+        const themeSelect = document.getElementById('theme-select');
+        const currentTheme = localStorage.getItem('theme') || 'system';
+        
+        // Set initial value
+        themeSelect.value = currentTheme;
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        // Add change handler
+        themeSelect.addEventListener('change', (e) => {
+            const theme = e.target.value;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
 </html>
