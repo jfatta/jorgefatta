@@ -112,10 +112,45 @@
             border: 1px solid var(--border);
             border-radius: 5px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
         }
 
         .terminal-content {
             margin-top: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .terminal-footer {
+            margin-top: 2rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        .terminal-footer .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .terminal-footer a {
+            color: var(--text);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .terminal-footer a:hover {
+            opacity: 1;
+        }
+
+        .terminal-footer .datetime {
+            font-family: inherit;
         }
 
         .terminal::before {
@@ -294,12 +329,15 @@
             <div class="terminal-content">
                 <p>Hi, I'm Jorge Fatta.</p>
                 <p>platform engineering tech lead.</p>
-                <div class="links">
-                    <a href="https://github.com/jfatta" target="_blank">GitHub</a>
-                    <a href="https://linkedin.com/in/jorgefatta" target="_blank">LinkedIn</a>
-                    <a href="https://x.com/jorgefatta_" target="_blank">X</a>
+            </div>
+            <div class="terminal-footer">
+                <div class="social-icons">
+                    <a href="https://github.com/jfatta" target="_blank">⎇</a>
+                    <a href="https://linkedin.com/in/jorgefatta" target="_blank">⌘</a>
+                    <a href="https://x.com/jorgefatta_" target="_blank">✕</a>
                     <a href="mailto:hi@jorgefatta.dev">✉</a>
                 </div>
+                <div class="datetime" id="datetime"></div>
             </div>
         </div>
     </div>
@@ -324,6 +362,24 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
         });
+
+        // Update datetime
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'short',
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('datetime').textContent = now.toLocaleString('en-US', options);
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
     </script>
 </body>
 </html>
