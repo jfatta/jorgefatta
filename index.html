@@ -4,32 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jorge Fatta</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='monospace' fill='%233d9168'>JF</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='Inter' fill='%23000'>JF</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dark-bg: #111111;
-            --dark-text: #3d9168;
-            --dark-accent: #3a4;
-            --dark-border: rgba(61, 145, 104, 0.3);
-            --dark-gradient: rgba(61, 145, 104, 0.05);
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>        :root {
+            /* Dark theme */
+            --dark-bg: #000000;
+            --dark-text: #ffffff;
+            --dark-text-secondary: #a1a1aa;
+            --dark-border: #27272a;
+            --dark-accent: #0070f3;
             
-            --light-bg: #f5f5f5;
-            --light-text: #2a624d;
-            --light-accent: #2a5;
-            --light-border: rgba(42, 98, 77, 0.3);
-            --light-gradient: rgba(42, 98, 77, 0.05);
+            /* Light theme */
+            --light-bg: #ffffff;
+            --light-text: #000000;
+            --light-text-secondary: #666666;
+            --light-border: #e5e5e5;
+            --light-accent: #0070f3;
         }
 
         @media (prefers-color-scheme: dark) {
             :root[data-theme="system"] {
                 --bg: var(--dark-bg);
                 --text: var(--dark-text);
-                --accent: var(--dark-accent);
+                --text-secondary: var(--dark-text-secondary);
                 --border: var(--dark-border);
-                --gradient: var(--dark-gradient);
+                --accent: var(--dark-accent);
             }
         }
 
@@ -37,288 +38,160 @@
             :root[data-theme="system"] {
                 --bg: var(--light-bg);
                 --text: var(--light-text);
-                --accent: var(--light-accent);
+                --text-secondary: var(--light-text-secondary);
                 --border: var(--light-border);
-                --gradient: var(--light-gradient);
+                --accent: var(--light-accent);
             }
         }
 
         :root[data-theme="dark"] {
             --bg: var(--dark-bg);
             --text: var(--dark-text);
-            --accent: var(--dark-accent);
+            --text-secondary: var(--dark-text-secondary);
             --border: var(--dark-border);
-            --gradient: var(--dark-gradient);
+            --accent: var(--dark-accent);
         }
 
         :root[data-theme="light"] {
             --bg: var(--light-bg);
             --text: var(--light-text);
-            --accent: var(--light-accent);
+            --text-secondary: var(--light-text-secondary);
             --border: var(--light-border);
-            --gradient: var(--light-gradient);
+            --accent: var(--light-accent);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Space Mono', 'Roboto Mono', 'Lucida Console', Monaco, monospace;
         }
 
         body {
-            background-color: var(--bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 600px;
             padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            perspective: 1000px;
+            text-align: center;
         }
 
-        .glitch-wrapper {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .glitch {
-            font-size: 4rem;
-            font-weight: bold;
-            position: relative;
-            text-shadow: 2px 2px 0px rgba(61, 145, 104, 0.2);
-            color: var(--terminal-green);
-            animation: none;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-            animation-delay: 0.5s;
-        }
-
-        .terminal {
-            background: color-mix(in srgb, var(--bg) 95%, black);
-            padding: 2rem;
+        .card {
+            background: var(--bg);
             border: 1px solid var(--border);
-            border-radius: 5px;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 200px;
-            transform: perspective(1500px) rotateX(2deg);
-            box-shadow: 0 0 20px rgba(61, 145, 104, 0.1),
-                       inset 0 0 20px rgba(61, 145, 104, 0.1);
             overflow: hidden;
         }
 
-        /* CRT screen effect */
-        .terminal::before {
+        .card::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.1),
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* Screen glow */
-        .terminal::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                ellipse at center,
-                transparent 50%,
-                rgba(61, 145, 104, 0.15) 100%
-            );
-            pointer-events: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
             opacity: 0.5;
-            mix-blend-mode: screen;
         }
 
-        .terminal-content {
-            margin-top: 1.5rem;
-            flex-grow: 1;
-            position: relative;
-            z-index: 1;
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .terminal-footer {
-            position: relative;
-            z-index: 2;
-            margin-top: 2rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--text);
-            opacity: 0.8;
-        }
-
-        .terminal-footer .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .terminal-footer a {
-            color: var(--text);
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .terminal-footer a:hover {
-            opacity: 1;
-        }
-
-        .terminal-footer .datetime {
-            font-family: inherit;
-        }
-
-        .links {
-            margin-top: 2rem;
-        }
-
-        .links a {
-            color: var(--text);
-            text-decoration: none;
-            margin-right: 1rem;
-            position: relative;
-        }
-
-        .links a::after {
-            content: '';
+        .theme-toggle {
             position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--text);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .links a:hover::after {
-            transform: scaleX(1);
-        }
-
-        .theme-switcher {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            z-index: 2;
-        }
-
-        .theme-select {
+            top: 1rem;
+            right: 1rem;
             background: none;
             border: 1px solid var(--border);
-            color: var(--text);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            padding: 0.25rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            opacity: 0.7;
             transition: all 0.3s ease;
-            outline: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            padding-right: 1.5rem;
+            font-size: 1rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .theme-select option[title] {
-            padding: 4px;
-        }
-
-        .theme-select:hover {
-            opacity: 1;
-        }
-
-        .theme-select:focus {
-            opacity: 1;
-            border-color: var(--text);
-        }
-
-        .theme-select option {
-            background-color: var(--bg);
+        .theme-toggle:hover {
+            background: var(--bg);
             color: var(--text);
+            border-color: var(--accent);
         }
 
-        .theme-switcher::after {
-            content: "▼";
-            font-size: 0.8rem;
-            color: var(--text);
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+        .greeting {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+            background: rgba(0, 112, 243, 0.1);
+            border-color: var(--accent);
+        }
+
+        .datetime {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
             opacity: 0.7;
+            font-weight: 400;
         }
 
-        @keyframes glitch {
-            0% {
-                text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
-                            -0.025em -0.05em 0 rgba(0,255,0,.75),
-                            0.025em 0.05em 0 rgba(0,0,255,.75);
-            }
-            14% {
-                text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
-                            -0.025em -0.05em 0 rgba(0,255,0,.75),
-                            0.025em 0.05em 0 rgba(0,0,255,.75);
-            }
-            15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75),
-                            0.025em 0.025em 0 rgba(0,255,0,.75),
-                            -0.05em -0.05em 0 rgba(0,0,255,.75);
-            }
-            49% {
-                text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75),
-                            0.025em 0.025em 0 rgba(0,255,0,.75),
-                            -0.05em -0.05em 0 rgba(0,0,255,.75);
-            }
-            50% {
-                text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75),
-                            0.05em 0 0 rgba(0,255,0,.75),
-                            0 -0.05em 0 rgba(0,0,255,.75);
-            }
-            99% {
-                text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75),
-                            0.05em 0 0 rgba(0,255,0,.75),
-                            0 -0.05em 0 rgba(0,0,255,.75);
-            }
-            100% {
-                text-shadow: -0.025em 0 0 rgba(255,0,0,.75),
-                            -0.025em -0.025em 0 rgba(0,255,0,.75),
-                            -0.025em -0.05em 0 rgba(0,0,255,.75);
-            }
-        }
-
-        @keyframes fadeIn {
+        /* Animations */
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -329,101 +202,91 @@
             }
         }
 
+        .card {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
         @media (max-width: 768px) {
-            .glitch {
-                font-size: 2.5rem;
+            .container {
+                padding: 1rem;
             }
-            .subtitle {
-                font-size: 1.2rem;
+            
+            .card {
+                padding: 2rem 1.5rem;
             }
-            .terminal {
-                transform: perspective(1500px) rotateX(1deg);
+            
+            .name {
+                font-size: 2rem;
             }
-            .terminal-content {
-                margin-top: 2.5rem;
+            
+            .social-links {
+                flex-wrap: wrap;
+                gap: 1rem;
             }
-            .theme-switcher {
-                top: 0.75rem;
-                right: 0.75rem;
-            }
-        }
-
-        .terminal p {
-            margin-bottom: 1rem;
-        }
-
-        .terminal p::before {
-            content: ">";
-            margin-right: 10px;
-            color: var(--accent);
-        }
-
-        .terminal p:last-child {
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 1.2em;
-            background-color: var(--text);
-            margin-left: 4px;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
+        }    </style>
 </head>
 <body>
     <div class="container">
-        <div class="terminal">
-            <div class="theme-switcher">
-                <select class="theme-select" id="theme-select" title="Change theme">
-                    <option value="dark" title="Switch to dark theme">☾ Dark</option>
-                    <option value="light" title="Switch to light theme">☼ Light</option>
-                    <option value="system" id="system-theme-option" title="Use system theme">⌨ System</option>
-                </select>
+        <div class="card">
+            <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                <span id="theme-icon">🌙</span>
+            </button>
+            
+            <div class="greeting">Hi, I'm</div>
+            <div class="name">Jorge Fatta</div>
+            <div class="title">platform engineering tech lead</div>
+            
+            <div class="social-links">
+                <a href="https://github.com/jfatta" target="_blank" class="social-link">GitHub</a>
+                <a href="https://linkedin.com/in/jorgefatta" target="_blank" class="social-link">LinkedIn</a>
+                <a href="https://x.com/jorgefatta_" target="_blank" class="social-link">X</a>
+                <a href="mailto:hi@jorgefatta.dev" class="social-link">Email</a>
             </div>
-            <div class="terminal-content">
-                <p>Hi, I'm Jorge Fatta.</p>
-                <p>platform engineering tech lead<span class="cursor"></span></p>
-            </div>
-            <div class="terminal-footer">
-                <div class="social-icons">
-                    <a href="https://github.com/jfatta" target="_blank" title="Visit my GitHub profile">⎇</a>
-                    <a href="https://linkedin.com/in/jorgefatta" target="_blank" title="Connect on LinkedIn">⌘</a>
-                    <a href="https://x.com/jorgefatta_" target="_blank" title="Follow me on X">✕</a>
-                    <a href="mailto:hi@jorgefatta.dev" title="Send me an email">✉</a>
-                </div>
-                <div class="datetime" id="datetime" title="Local time"></div>
-            </div>
+            
+            <div class="datetime" id="datetime"></div>
         </div>
     </div>
+
     <script>
-        const themeSelect = document.getElementById('theme-select');
-        const systemOption = document.getElementById('system-theme-option');
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
         const currentTheme = localStorage.getItem('theme') || 'system';
         
-        // Detect if device is mobile
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        // Update system option icon based on device
-        systemOption.textContent = `${isMobile ? '☎' : '⌨'} System`;
-        
-        // Set initial value
-        themeSelect.value = currentTheme;
+        // Set initial theme
         document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
 
-        // Add change handler
-        themeSelect.addEventListener('change', (e) => {
-            const theme = e.target.value;
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme;
+            
+            if (currentTheme === 'dark') {
+                newTheme = 'light';
+            } else if (currentTheme === 'light') {
+                newTheme = 'system';
+            } else {
+                newTheme = 'dark';
+            }
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
         });
+
+        function updateThemeIcon(theme) {
+            switch(theme) {
+                case 'dark':
+                    themeIcon.textContent = '🌙';
+                    break;
+                case 'light':
+                    themeIcon.textContent = '☀️';
+                    break;
+                case 'system':
+                    themeIcon.textContent = '⚙️';
+                    break;
+            }
+        }
 
         // Update datetime
         function updateDateTime() {
@@ -434,10 +297,9 @@
                 day: '2-digit',
                 hour: '2-digit',
                 minute: '2-digit',
-                second: '2-digit',
                 hour12: false
             };
-            document.getElementById('datetime').textContent = now.toLocaleString('en-US', options);
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options) + ', ' + now.toLocaleTimeString('en-US', {hour12: false});
         }
         
         updateDateTime();
